@@ -1,29 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import Home from './Home';
-import Page1 from './Page1';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Pge2 from "./Pge2";
+import root from "./Root";
+
 function App() {
-  // eslint-disable-next-line
-  const [apiResponse, setAPIResponse]=useState("");
-
-  useEffect(() => {
-    callAPI();
-  }, []);
-
-  const callAPI=() => {
-    fetch("http://localhost:9000/testAPI")
-      .then(res => res.text())
-      .then(res => setAPIResponse(res))
-      .catch(error => console.log(error)); // Handle any errors
-  };
   return (
-    <>
-      <Home />
-      <Page1 />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" exact component={root} />
+        <Route path="/page2" component={Pge2} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-
