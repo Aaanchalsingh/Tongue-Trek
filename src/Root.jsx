@@ -11,7 +11,7 @@ function Root() {
   }, []);
 
   const callAPI=() => {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:3000/translate")
       .then(res => res.text())
       .then(res => setAPIResponse(res))
       .catch(error => console.log(error)); // Handle any errors

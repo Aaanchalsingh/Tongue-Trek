@@ -9,30 +9,32 @@ const SpeechToText = () => {
     SpeechRecognition.startListening({ continuous: true });
   };
 
-  const stopListening = async () => {
+  const stopListening = () => {
     SpeechRecognition.stopListening();
+    translateText(finalTranscript); // Translate the text after recording stops
+    resetTranscript();
+  };
 
+  const translateText = async (text) => {
     try {
-      const response = await fetch('/api/translate', {
+      const response = await fetch('http://localhost:3000/translate', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: finalTranscript, to: 'ja' }) // Adjust 'to' language as needed
+        body: JSON.stringify({ text, to: 'ja' }),
       });
-
       if (!response.ok) {
         throw new Error('Translation failed');
       }
-
       const data = await response.json();
       setTranscript(data.translation);
-      resetTranscript();
     } catch (error) {
       console.error('Translation error:', error);
       setTranscript('Translation failed');
     }
   };
+
 
   return (
     <div className='box'>
