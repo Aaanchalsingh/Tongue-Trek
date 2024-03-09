@@ -4,18 +4,6 @@ import Home from './Home';
 import Page1 from './Page1';
 function Root() {
   // eslint-disable-next-line
-  const [apiResponse, setAPIResponse]=useState("");
-
-  useEffect(() => {
-    callAPI();
-  }, []);
-
-  const callAPI=() => {
-    fetch("http://localhost:3000/translate")
-      .then(res => res.text())
-      .then(res => setAPIResponse(res))
-      .catch(error => console.log(error)); // Handle any errors
-  };
   return (
     <>
       <Home />
