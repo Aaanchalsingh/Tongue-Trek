@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import React, { useState } from "react";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 const SpeechToText = () => {
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState("");
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
   const handleListen = () => {
@@ -14,7 +16,6 @@ const SpeechToText = () => {
     setTranscript(finalTranscript);
     resetTranscript();
   };
-
 
   return (
     <div className="box">
