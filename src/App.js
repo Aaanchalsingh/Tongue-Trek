@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Home from './Home';
 function App() {
+  // eslint-disable-next-line
   const [apiResponse, setAPIResponse]=useState("");
 
   useEffect(() => {
@@ -13,39 +15,8 @@ function App() {
       .then(res => setAPIResponse(res))
       .catch(error => console.log(error)); // Handle any errors
   };
-  const [username, setUsername]=useState('');
-  const [password, setPassword]=useState('');
-  // eslint-disable-next-line
-  const [loginStatus, setLoginStatus]=useState('');
-
-  const handleLogin=() => {
-    if (username==='admin'&&password==='admin') {
-      setLoginStatus('Login successful');
-    } else {
-      setLoginStatus('Invalid username or password');
-    }
-  };
-
   return (
-    <center>
-      <div className="login-container">
-        <h2>Login</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleLogin}>Login</button>
-        <p className="App-intro">{apiResponse}</p>
-      </div>
-    </center>
+    <Home />
   );
 }
 
