@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Home from './Home';
+import Page1 from './Page1';
 function App() {
   // eslint-disable-next-line
   const [apiResponse, setAPIResponse]=useState("");
@@ -16,7 +17,10 @@ function App() {
       .catch(error => console.log(error)); // Handle any errors
   };
   return (
-    <Home />
+    <>
+      <Home />
+      <Page1 />
+    </>
   );
 }
 

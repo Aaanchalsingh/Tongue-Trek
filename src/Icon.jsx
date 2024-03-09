@@ -7,6 +7,8 @@ const SVGComponent = (props) => (
         x="0px"
         y="0px"
         viewBox="0 0 400 400"
+        width="1200" // Set the desired width
+        height="1200"
         enableBackground="new 0 0 400 400"
         xmlSpace="preserve"
         {...props}
@@ -5847,42 +5849,42 @@ const SVGComponent = (props) => (
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              T\n            "}
+                {"\n              V\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 161.5945 223.6863)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              O\n            "}
+                {"\n              E\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 175.5847 220.6306)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              N\n            "}
+                {"\n              R\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 190.0623 217.4695)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              G\n            "}
+                {"\n              B\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 203.6252 214.5085)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              U\n            "}
+                {"\n              O\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 215.5266 211.9099)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={39.6581}
               >
-                {"\n              E\n            "}
+                {"\n              \n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 226.9495 209.4148)"
@@ -5990,28 +5992,35 @@ const SVGComponent = (props) => (
                 fontFamily="'Pathway Gothic One'"
                 fontSize={15.5752}
               >
-                {"\n              T\n            "}
+                {"\n              V\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2134 0 1 227.7874 230.1404)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={15.5752}
               >
-                {"\n              R\n            "}
+                {"\n              E\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 233.1858 228.9607)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={15.5752}
               >
-                {"\n              E\n            "}
+                {"\n              R\n            "}
               </text>
               <text
                 transform="matrix(0.977 -0.2133 0 1 238.8342 227.7273)"
                 fontFamily="'Pathway Gothic One'"
                 fontSize={15.5752}
               >
-                {"\n              K\n            "}
+                {"\n              S\n            "}
+              </text>
+              <text
+                transform="matrix(0.977 -0.2133 0 1 243.8342 225.7273)"
+                fontFamily="'Pathway Gothic One'"
+                fontSize={15.5752}
+              >
+                {"\n              E\n            "}
               </text>
             </g>
             <rect
