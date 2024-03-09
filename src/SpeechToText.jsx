@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import translate from '@vitalets/google-translate-api';
 
 const SpeechToText = () => {
   const [transcript, setTranscript] = useState('');
@@ -10,14 +9,29 @@ const SpeechToText = () => {
     SpeechRecognition.startListening({ continuous: true });
   };
 
-  const stopListening = () => {
+  const stopListening = async () => {
     SpeechRecognition.stopListening();
-    translate(finalTranscript, { to: 'ja' }).then((response) => {
-      setTranscript(response.text);
-    }).catch((error) => {
+
+    try {
+      const response = await fetch('/api/translate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: finalTranscript, to: 'ja' }) // Adjust 'to' language as needed
+      });
+
+      if (!response.ok) {
+        throw new Error('Translation failed');
+      }
+
+      const data = await response.json();
+      setTranscript(data.translation);
+      resetTranscript();
+    } catch (error) {
       console.error('Translation error:', error);
-    });
-    resetTranscript();
+      setTranscript('Translation failed');
+    }
   };
 
   return (
