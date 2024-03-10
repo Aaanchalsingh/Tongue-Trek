@@ -1,75 +1,8 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import "jquery.transit";
-import logo from "./1.png";
-import pause from "./2.png";
 
 function Pge2() {
-  const [isRecording, setisRecording] = useState(false);
-  const [note, setNote] = useState(null);
-  const [notesStore, setnotesStore] = useState([]);
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  const microphone = new SpeechRecognition();
-
-  microphone.continuous = true;
-  microphone.interimResults = true;
-  microphone.lang = "en-US";
-
-  const storeNote = () => {
-    setnotesStore([...notesStore, note]);
-    setNote("");
-  };
-
-  const startRecordController = () => {
-    if (isRecording) {
-      // Start animation when recording starts
-      startAnimation();
-      microphone.start();
-      microphone.onend = () => {
-        console.log("continue..");
-        microphone.start();
-      };
-    } else {
-      // Stop animation when recording stops
-      stopAnimation();
-      microphone.stop();
-      microphone.onend = () => {
-        console.log("Stopped microphone on Click");
-      };
-    }
-    microphone.onstart = () => {
-      console.log("microphones on");
-    };
-
-    microphone.onresult = (event) => {
-      const recordingResult = Array.from(event.results)
-        .map((result) => result[0])
-        .map((result) => result.transcript)
-        .join("");
-      console.log(recordingResult);
-      setNote(recordingResult);
-      microphone.onerror = (event) => {
-        console.log(event.error);
-      };
-    };
-  };
-
-  const startAnimation = () => {
-    // Start animation logic
-    $(".shape_background").transit("resume");
-  };
-
-  const stopAnimation = () => {
-    // Stop animation logic
-    $(".shape_background").transit("pause");
-  };
-
-  useEffect(() => {
-    startRecordController();
-    // eslint-disable-next-line
-  }, [isRecording]);
-
   useEffect(() => {
     const background = {};
 
@@ -171,24 +104,66 @@ function Pge2() {
 
     return () => {};
   }, []);
+  const [isRecording, setisRecording] = useState(false);
+  const [note, setNote] = useState(null);
+  const [notesStore, setnotesStore] = useState([]);
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const microphone = new SpeechRecognition();
 
+  microphone.continuous = true;
+  microphone.interimResults = true;
+  microphone.lang = "en-US";
+  const storeNote = () => {
+    setnotesStore([...notesStore, note]);
+    setNote("");
+  };
+  const startRecordController = () => {
+    if (isRecording) {
+      microphone.start();
+      microphone.onend = () => {
+        console.log("continue..");
+        microphone.start();
+      };
+    } else {
+      microphone.stop();
+      microphone.onend = () => {
+        console.log("Stopped microphone on Click");
+      };
+    }
+    microphone.onstart = () => {
+      console.log("microphones on");
+    };
+
+    microphone.onresult = (event) => {
+      const recordingResult = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
+      console.log(recordingResult);
+      setNote(recordingResult);
+      microphone.onerror = (event) => {
+        console.log(event.error);
+      };
+    };
+  };
+
+  useEffect(() => {
+    startRecordController();
+    // eslint-disable-next-line
+  }, [isRecording]);
   return (
-    <div className="App flex flex-col items-center align-content-center " style={{ background: "#007bff" }}>
-      <h1 className="text-6xl font-bold text-center text-white p-10">
-        Record Voice Notes
-      </h1>
-      <div className="flex items-center align-content-center ">
+    <div className="App" style={{ background: "#007bff" }}>
+      <h1>Record Voice Notes</h1>
+      <div>
         <div className="noteContainer">
-
           <h2>Record Note Here</h2>
+          {isRecording ? <span>Recording... </span> : <span>Stopped </span>}
           <button className="button" onClick={storeNote} disabled={!note}>
             Save
           </button>
-          <button onClick={() => {
-            setisRecording((prevState) => !prevState);
-            startRecordController();
-          }}>
-            <img src={!isRecording ? pause : logo} alt="" srcSet="" />
+          <button onClick={() => setisRecording((prevState) => !prevState)}>
+            Start/Stop
           </button>
           <p>{note}</p>
         </div>
@@ -204,5 +179,4 @@ function Pge2() {
     </div>
   );
 }
-
 export default Pge2;
