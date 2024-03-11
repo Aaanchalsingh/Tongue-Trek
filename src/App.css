@@ -2,10 +2,20 @@
   height: 100vh;
   width: 100vw;
 }
-button {
-  margin: 5px;
-}
 img{
   height: 30vh;
   width: 15vw;
+}
+.noteContainer {
+  border: 1px solid grey;
+  background-color: aliceblue;
+  min-height: 15rem;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 16vw;
+}
+
+button {
+  margin: 5px;
 }
