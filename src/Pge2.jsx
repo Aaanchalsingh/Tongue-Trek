@@ -14,6 +14,7 @@ function Pge2() {
   microphone.interimResults = true;
   microphone.lang = "en-US";
 
+  // eslint-disable-next-line
   const storeNote = () => {
     setNotesStore([...notesStore, note]);
     setNote("");
@@ -121,7 +122,6 @@ function Pge2() {
           Math.random() * ($this.speed[1] - $this.speed[0]) + $this.speed[0],
           function () {
             $(this).remove();
-            // Call recursively to generate more bubbles
             backgroundInitializr();
           }
         );
@@ -130,8 +130,8 @@ function Pge2() {
 
     backgroundInitializr();
 
-    // Clean up the background effect when the component unmounts
     return () => {
+      // eslint-disable-next-line
       $("#" + "background_css3").remove();
     };
   }, []);
