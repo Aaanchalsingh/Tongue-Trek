@@ -5,66 +5,8 @@ import logo1 from "./1.png";
 import logo2 from "./2.png";
 
 function Pge2() {
-  const [isRecording, setIsRecording] = useState(false);
-  // eslint-disable-next-line
-  const [note, setNote] = useState(null);
-  const [notesStore, setNotesStore] = useState([]);
-  const [showSpeakPrompt, setShowSpeakPrompt] = useState(true);
-  const [isImageOne, setIsImageOne] = useState(true); // state to toggle between two images
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  const microphone = new SpeechRecognition();
-
-  microphone.continuous = true;
-  microphone.interimResults = true;
-  microphone.lang = "en-US";
-
-  const startRecordController = () => {
-    if (isRecording) {
-      console.log("Starting recording...");
-      microphone.start();
-    } else {
-      console.log("Stopping recording...");
-      microphone.stop();
-    }
-  };
-
-  useEffect(() => {
-    startRecordController();
-
-    microphone.onresult = (event) => {
-      const recordingResult = Array.from(event.results)
-        .map((result) => result[0])
-        .map((result) => result.transcript)
-        .join("");
-      console.log("Recording result:", recordingResult);
-      setNote(recordingResult);
-      setNotesStore([...notesStore, recordingResult]);
-      setShowSpeakPrompt(false);
-    };
-
-    microphone.onerror = (event) => {
-      console.log("Speech recognition error:", event.error);
-    };
-
-    return () => {
-      console.log("Cleaning up microphone...");
-      microphone.stop();
-    };
-    // eslint-disable-next-line
-  }, [isRecording, notesStore]);
-
-  const toggleRecording = () => {
-    setIsRecording((prevState) => !prevState);
-  };
-
-  const toggleImage = () => {
-    setIsImageOne((prev) => !prev); // toggle between the two images
-  };
-
   useEffect(() => {
     const backgroundInitializr = () => {
-
       const $this = {};
       $this.id = "background_css3";
       $this.style = {
@@ -161,6 +103,74 @@ function Pge2() {
     };
   }, []);
 
+  const [isRecording, setIsRecording] = useState(false);
+  // eslint-disable-next-line
+  const [note, setNote] = useState(null);
+  const [notesStore, setNotesStore] = useState([]);
+  const [showSpeakPrompt, setShowSpeakPrompt] = useState(true);
+  const [isImageOne, setIsImageOne] = useState(true);
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  const microphone = new SpeechRecognition();
+
+  microphone.continuous = true;
+  microphone.interimResults = true;
+  microphone.lang = "en-US";
+
+  const startRecordController = () => {
+    if (isRecording) {
+      console.log("Starting recording...");
+      microphone.start();
+    } else {
+      console.log("Stopping recording...");
+      microphone.stop();
+    }
+  };
+
+  useEffect(() => {
+    startRecordController();
+
+    microphone.onresult = (event) => {
+      const recordingResult = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
+      console.log("Recording result:", recordingResult);
+      setNote(recordingResult);
+      setNotesStore([...notesStore, recordingResult]);
+      setShowSpeakPrompt(false);
+    };
+
+    microphone.onerror = (event) => {
+      console.log("Speech recognition error:", event.error);
+    };
+
+    return () => {
+      console.log("Cleaning up microphone...");
+      microphone.stop();
+    };
+    // eslint-disable-next-line
+  }, [isRecording, notesStore]);
+
+  const toggleRecording = () => {
+    setIsRecording((prevState) => !prevState);
+  };
+
+  const toggleImage = () => {
+    setIsImageOne((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const backgroundInitializr = () => {};
+
+    backgroundInitializr();
+
+    return () => {
+      // eslint-disable-next-line
+      $("#" + "background_css3").remove();
+    };
+  }, []);
+
   return (
     <div className="App" style={{ background: "#007bff" }}>
       <div className="flex flex-col items-center h-screen justify-center">
@@ -168,7 +178,6 @@ function Pge2() {
           Record Voice Notes
         </h1>
         {showSpeakPrompt && <h2>Speak in your native language</h2>}{" "}
-        {/* Render the h2 only when showSpeakPrompt is true */}
         <div className="flex">
           <div>
             <button className="cursor-pointer" onClick={toggleRecording}>
