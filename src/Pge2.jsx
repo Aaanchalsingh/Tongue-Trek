@@ -5,106 +5,7 @@ import logo1 from "./1.png";
 import logo2 from "./2.png";
 
 function Pge2() {
-  useEffect(() => {
-    const backgroundInitializr = () => {
-      const $this = {};
-      $this.id = "background_css3";
-      $this.style = {
-        bubbles_color: "#fff",
-        stroke_width: 0,
-        stroke_color: "black",
-      };
-      $this.bubbles_number = 30;
-      $this.speed = [1500, 8000];
-      $this.max_bubbles_height = $this.height;
-      $this.shape = false;
-
-      if ($("#" + $this.id).length > 0) {
-        $("#" + $this.id).remove();
-      }
-      $this.object = $(
-        "<div style='margin:0;padding:0; overflow:hidden;position:absolute;bottom:0' id='" +
-          $this.id +
-          "'> </div>"
-      ).appendTo("body");
-
-      $this.ww = $(window).width();
-      $this.wh = $(window).height();
-      $this.width = $this.object.width($this.ww);
-      $this.height = $this.object.height($this.wh);
-
-      $("body").prepend(
-        "<style>.shape_background {transform-origin:center; width:80px; height:80px; background: " +
-          $this.style.bubbles_color +
-          "; position: absolute}</style>"
-      );
-
-      for (let i = 0; i < $this.bubbles_number; i++) {
-        // Generate bubbles here
-        const base = $("<div class='shape_background'></div>");
-        const shape_type = $this.shape
-          ? $this.shape
-          : Math.floor(Math.random() * 3) + 1;
-        let bolla;
-        if (shape_type === 1) {
-          bolla = base.css({ borderRadius: "50%" });
-        } else if (shape_type === 2) {
-          bolla = base.css({
-            width: 0,
-            height: 0,
-            "border-style": "solid",
-            "border-width": "0 40px 69.3px 40px",
-            "border-color":
-              "transparent transparent " +
-              $this.style.bubbles_color +
-              " transparent",
-            background: "transparent",
-          });
-        } else {
-          bolla = base;
-        }
-        const rn_size = Math.random() * (1.2 - 0.8) + 0.8;
-        bolla.css({
-          transform:
-            "scale(" +
-            rn_size +
-            ") rotate(" +
-            (Math.random() * 720 - 360) +
-            "deg)",
-          top: $this.wh + 100,
-          left: Math.random() * ($this.ww + 120) - 60,
-        });
-        bolla.appendTo($this.object);
-        bolla.transit(
-          {
-            top: Math.random() * ($this.wh / 2 - 60) + $this.wh / 2,
-            transform:
-              "scale(" +
-              rn_size +
-              ") rotate(" +
-              (Math.random() * 720 - 360) +
-              "deg)",
-            opacity: 0,
-          },
-          Math.random() * ($this.speed[1] - $this.speed[0]) + $this.speed[0],
-          function () {
-            $(this).remove();
-            backgroundInitializr();
-          }
-        );
-      }
-    };
-
-    backgroundInitializr();
-
-    return () => {
-      // eslint-disable-next-line
-      $("#" + "background_css3").remove();
-    };
-  }, []);
-
   const [isRecording, setIsRecording] = useState(false);
-  // eslint-disable-next-line
   const [note, setNote] = useState(null);
   const [notesStore, setNotesStore] = useState([]);
   const [showSpeakPrompt, setShowSpeakPrompt] = useState(true);
@@ -161,23 +62,32 @@ function Pge2() {
   };
 
   useEffect(() => {
-    const backgroundInitializr = () => {};
+    const animateBackground = () => {
+      const circles = Array.from({ length: 10 }, (_, i) => i + 1);
 
-    backgroundInitializr();
+      circles.forEach((_, index) => {
+        const circle = document.createElement("li");
+        document.querySelector(".circles").appendChild(circle);
+        circle.style.left = `${Math.random() * 100}%`;
+        circle.style.animationDelay = `${Math.random() * 10}s`;
+        circle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+      });
+    };
+
+    animateBackground();
 
     return () => {
-      // eslint-disable-next-line
-      $("#" + "background_css3").remove();
+      $(".circles li").remove();
     };
   }, []);
 
   return (
-    <div className="App" style={{ background: "#007bff" }}>
+    <div className="App">
       <div className="flex flex-col items-center h-screen justify-center">
         <h1 className="text-5xl pb-7 text-center font-bold text-white">
           Record Voice Notes
         </h1>
-        {showSpeakPrompt && <h2>Speak in your native language</h2>}{" "}
+        {showSpeakPrompt && <h2>Speak in your native language</h2>}
         <div className="flex">
           <div>
             <button className="cursor-pointer" onClick={toggleRecording}>
@@ -190,10 +100,13 @@ function Pge2() {
           </div>
           <div className="noteContainer">
             {notesStore.map((note, index) => (
-              <p key={index}>{note}</p> // Use index as key since note might not be unique
+              <p key={index}>{note}</p>
             ))}
           </div>
         </div>
+      </div>
+      <div className="area">
+        <ul className="circles"></ul>
       </div>
     </div>
   );
